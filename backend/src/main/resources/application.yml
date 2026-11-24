@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: automata-vehicle-capture
+  datasource:
+    # Perfil por defecto (dev): H2 en archivo, sin instalar nada. Ver application-prod.yml para PostgreSQL.
+    url: jdbc:h2:file:./data/avc;MODE=PostgreSQL;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: ""
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+  flyway:
+    enabled: true
+  servlet:
+    multipart:
+      max-file-size: 15MB
+      max-request-size: 20MB
+  jackson:
+    default-property-inclusion: non_null
+
+server:
+  port: 8080
+
+app:
+  storage:
+    path: ./storage
+  ocr:
+    provider: dummy              # dummy | (futuro) google-vision | textract | tesseract
+    low-confidence-threshold: 0.85
+    dummy-latency-ms: 1500
+  export:
+    # DUMMY: columnas ficticias. Se reemplazan con el formato oficial de la empresa portuaria.
+    columns:
+      - { header: "VIN / Chasis", field: vin }
+      - { header: "Marca", field: brand }
+      - { header: "Modelo", field: model }
+      - { header: "Año", field: year }
+      - { header: "Color", field: color }
+      - { header: "N° Motor", field: engineNumber }
+      - { header: "Combustible", field: fuelType }
+      - { header: "Carrocería", field: bodyType }
+      - { header: "Cilindrada (cc)", field: displacementCc }
+      - { header: "País de origen", field: originCountry }

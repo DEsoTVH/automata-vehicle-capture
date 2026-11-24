@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/avc}
+    username: ${DB_USER:avc}
+    password: ${DB_PASSWORD:avc}
+
+app:
+  storage:
+    path: ${STORAGE_PATH:/data/storage}
+  ocr:
+    dummy-latency-ms: ${OCR_DUMMY_LATENCY_MS:1500}

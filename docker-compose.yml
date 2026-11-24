@@ -1,0 +1,41 @@
+# Stack completo: PostgreSQL + backend + frontend (nginx).  Uso:  cp .env.example .env && docker compose up --build
+# Nota: aún no probado en esta máquina (el daemon de Docker estaba apagado al crearlo).
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-avc}
+      POSTGRES_USER: ${POSTGRES_USER:-avc}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?define POSTGRES_PASSWORD en .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-avc} -d ${POSTGRES_DB:-avc}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build: ./backend
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-avc}
+      DB_USER: ${POSTGRES_USER:-avc}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      STORAGE_PATH: /data/storage
+    volumes:
+      - storage:/data/storage
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
+  storage:
