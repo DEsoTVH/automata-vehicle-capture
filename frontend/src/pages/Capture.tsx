@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
 import { prepareImage } from '../image';
+import { IconArrow, IconCamera, IconClose, IconImage } from '../components/Icons';
 import StatusBadge from '../components/StatusBadge';
 import { isProcessing, type RecordStatus } from '../types';
 
@@ -90,12 +91,12 @@ export default function Capture() {
       <h1>Capturar fichas</h1>
       <div className="row">
         <label className="btn primary big grow">
-          📷 Tomar foto
+          <IconCamera /> Tomar foto
           <input type="file" accept="image/*" capture="environment" hidden
                  onChange={(e) => { addFiles(e.target.files); e.target.value = ''; }} />
         </label>
         <label className="btn big grow">
-          🖼️ Galería
+          <IconImage /> Galería
           <input type="file" accept="image/*" multiple hidden
                  onChange={(e) => { addFiles(e.target.files); e.target.value = ''; }} />
         </label>
@@ -116,11 +117,11 @@ export default function Capture() {
               {it.duplicate && <div className="warn-text">Esta foto ya estaba cargada.</div>}
               {it.phase === 'error' && <div className="error">{it.error}</div>}
               {it.recordId && it.phase === 'done' && (
-                <Link to={`/vehicles/${it.recordId}`} className="btn small-btn">Revisar ficha →</Link>
+                <Link to={`/vehicles/${it.recordId}`} className="btn small-btn">Revisar ficha <IconArrow size={16} /></Link>
               )}
             </div>
             {(it.phase === 'ready' || it.phase === 'error') && (
-              <button className="icon-btn" aria-label="Quitar" onClick={() => remove(it.key)}>✕</button>
+              <button className="icon-btn" aria-label="Quitar" onClick={() => remove(it.key)}><IconClose size={20} /></button>
             )}
           </li>
         ))}

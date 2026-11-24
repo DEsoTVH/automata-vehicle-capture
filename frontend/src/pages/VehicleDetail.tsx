@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { api } from '../api';
 import StatusBadge from '../components/StatusBadge';
+import { IconAlert } from '../components/Icons';
 import { fmtDate, isProcessing, type Schema, type VehicleDetail } from '../types';
 
 const ACTION_LABEL: Record<string, string> = {
@@ -92,7 +93,7 @@ export default function VehicleDetailPage() {
       )}
       {detail.possibleDuplicates.length > 0 && (
         <div className="warn-box">
-          ⚠️ Posible duplicado: ya existe otro registro con este VIN.{' '}
+          <IconAlert size={20} /> Posible duplicado: ya existe otro registro con este VIN.{' '}
           {detail.possibleDuplicates.map((d) => (
             <Link key={d} to={`/vehicles/${d}`}>ver</Link>
           ))}

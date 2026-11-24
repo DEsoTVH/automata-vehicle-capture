@@ -35,7 +35,7 @@ export default function Vehicles() {
       <ul className="cards">
         {rows?.map((v) => (
           <li key={v.id}>
-            <Link to={`/vehicles/${v.id}`} className="card">
+            <Link to={`/vehicles/${v.id}`} className="card" data-status={v.status}>
               <div className="card-main">
                 <strong>{[v.brand, v.model].filter(Boolean).join(' ') || 'Sin identificar'}</strong>
                 <div className="mono small">{v.vin ?? 'VIN pendiente'}</div>

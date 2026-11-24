@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
+import { IconCamera } from '../components/Icons';
 import type { Stats } from '../types';
 
 export default function Dashboard() {
@@ -21,10 +22,15 @@ export default function Dashboard() {
 
   return (
     <>
-      <h1>Inicio</h1>
-      <Link to="/capture" className="btn primary big">
-        📷 Capturar ficha
-      </Link>
+      <section className="hero">
+        <p className="eyebrow">Panel de operación</p>
+        <h1>Cero <span>transcripción.</span></h1>
+        <p>Fotografía la ficha, valida los datos y exporta el registro. Todo desde el teléfono.</p>
+        <Link to="/capture" className="btn primary big">
+          <IconCamera /> Capturar ficha
+        </Link>
+      </section>
+
       {error && <p className="error">{error}</p>}
       <div className="tiles">
         {tiles.map(([label, value, tone]) => (
@@ -34,8 +40,8 @@ export default function Dashboard() {
           </div>
         ))}
       </div>
-      <p className="hint">
-        Datos de demostración: el OCR es simulado y los campos son ficticios hasta recibir las fichas reales.
+      <p className="hint small">
+        Modo demostración: el OCR es simulado y los campos son ficticios hasta recibir las fichas reales.
       </p>
     </>
   );

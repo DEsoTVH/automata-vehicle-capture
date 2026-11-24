@@ -4,19 +4,24 @@ import Capture from './pages/Capture';
 import Vehicles from './pages/Vehicles';
 import VehicleDetailPage from './pages/VehicleDetail';
 import Exports from './pages/Exports';
+import { IconCamera, IconCar, IconExport, IconHome } from './components/Icons';
 
 const NAV = [
-  { to: '/', label: 'Inicio', icon: '🏠', end: true },
-  { to: '/capture', label: 'Capturar', icon: '📷' },
-  { to: '/vehicles', label: 'Vehículos', icon: '🚗' },
-  { to: '/exports', label: 'Exportar', icon: '📄' },
+  { to: '/', label: 'Inicio', icon: <IconHome />, end: true },
+  { to: '/capture', label: 'Capturar', icon: <IconCamera /> },
+  { to: '/vehicles', label: 'Vehículos', icon: <IconCar /> },
+  { to: '/exports', label: 'Exportar', icon: <IconExport /> },
 ];
 
 export default function App() {
   return (
     <div className="app">
       <header className="topbar">
-        <strong>Automata</strong> <span className="muted-on-dark">Captura de vehículos</span>
+        <div className="logo" aria-hidden>A</div>
+        <div className="brand">
+          <strong>Automata</strong>
+          <span>Vehicle Capture</span>
+        </div>
       </header>
       <main className="content">
         <Routes>
@@ -31,7 +36,7 @@ export default function App() {
       <nav className="tabbar">
         {NAV.map((n) => (
           <NavLink key={n.to} to={n.to} end={n.end} className={({ isActive }) => (isActive ? 'tab active' : 'tab')}>
-            <span aria-hidden>{n.icon}</span>
+            {n.icon}
             <span>{n.label}</span>
           </NavLink>
         ))}

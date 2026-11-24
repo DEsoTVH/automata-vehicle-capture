@@ -65,7 +65,7 @@ export default function Exports() {
           </label>
           <ul className="cards">
             {available.map((v) => (
-              <li key={v.id} className="card">
+              <li key={v.id} className="card" data-status="VALIDATED">
                 <label className="check grow">
                   <input type="checkbox" checked={selected.has(v.id)} onChange={() => toggle(v.id)} />
                   <span>
